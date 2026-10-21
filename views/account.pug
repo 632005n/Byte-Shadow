@@ -1,0 +1,447 @@
+extends base
+
+block head
+
+    link(rel="stylesheet", href="/css/account.css")
+    link(rel="stylesheet", href="/css/overview.css")
+    link(rel="stylesheet", href="/css/details.css")
+
+block content
+
+    //- Start Account Page
+    main.account-page(data-user-id=user._id)
+        .container
+            .account-view
+
+                //- Start Sidebar
+                nav.account-menu
+                    ul.side-nav
+                        li.side-nav--active
+                            a(href="#settings")
+                                i.fas.fa-user-cog
+                                span Account Settings
+
+                        li
+                            a(href="#bids")
+                                i.fas.fa-gavel
+                                span My Bids
+
+                        //- li
+                        //-     a(href="#favorites")
+                        //-         i.fas.fa-heart
+                        //-         span Favorites
+
+                        li
+                            a(href="#purchases")
+                                i.fas.fa-palette
+                                span My Purchases
+
+                        li
+                            a(href="#password")
+                                i.fas.fa-lock
+                                span Change Password
+
+                        //- li
+                        //-     a.nav__el--logout(href="#")
+                        //-         i.fas.fa-sign-out-alt
+                        //-         span Logout
+
+                //- End Sidebar
+
+
+                //- Start Account Content
+                .account-content
+
+                    //- Account Settings
+                    section.account-section#settings
+                        h2 Account Settings
+                        p.section-description
+                            | Manage your personal information and profile.
+
+                        form.account-form.form-user-data
+                            .form-group
+                                label(for="name") Full Name
+                                input#name(
+                                    type="text"
+                                    value=user.name
+                                    name="name"
+                                    required
+                                )
+
+                            .form-group
+                                label(for="email") Email Address
+                                input#email(
+                                    type="email"
+                                    value=user.email
+                                    name="email"
+                                    required
+                                )
+
+                            //- .form-group
+                            //-     label(for="phone") Phone Number
+                            //-     input#phone(
+                            //-         type="tel"
+                            //-         placeholder="Enter your phone number"
+                            //-         name="phone"
+                            //-     )
+                            .form-group
+                                label(for="phone") Phone Number
+                                input#phone(
+                                    type="tel"
+                                    placeholder="Enter your phone number"
+                                    value=user.phone || ''
+                                    name="phone"
+                                )
+
+                            .form-group
+                                label(for="country") Country
+                                input#country(
+                                    type="text"
+                                    placeholder="Enter your country"
+                                    value=user.country || ''
+                                    name="country"
+                                )
+
+                            .form-group
+                                label(for="address") Address
+                                textarea#address(
+                                    placeholder="Enter your address"
+                                    name="address"
+                                )= user.address || ''
+
+                            .profile-photo
+                                img(
+                                    src=`/img/users/${user.photo}`
+                                    alt=user.name
+                                )
+
+                                div
+                                    label(for="photo") Profile Photo
+                                    input#photo(
+                                        type="file"
+                                        accept="image/*"
+                                        name="photo"
+                                    )
+
+                            button.account-btn(type="submit")
+                                | Save Changes
+
+
+                    //- My Bids
+                    section.account-section#bids
+                        h2 My Bids
+                        p.section-description
+                            | Track the paintings you are currently bidding on.
+
+
+                        if bids.length
+                            each bid in bids
+                                if bid.painting
+                                    .account-card
+                                        img(
+                                            src=`/img/paintings/${bid.painting.image}`
+                                            alt=bid.painting.name
+                                        )
+
+                                        .card-info
+                                            h3= bid.painting.name
+
+                                            p
+                                                | Your current bid:
+                                                strong $#{bid.amount}
+
+                                            p
+                                                | Current highest bid:
+                                                strong $#{bid.painting.currentPrice}
+
+                                            span.status= bid.painting.status === 'active' ? 'Auction Active' : bid.painting.status
+
+                                        a.card-btn(href=`/painting/${bid.painting.slug}`)
+                                            | View Painting
+
+                        else
+                            p You have not placed any bids yet.
+
+                        //- if bids.length
+                        //-     each bid in bids
+                        //-         .account-card
+                        //-             img(
+                        //-                 src=`/img/paintings/${bid.painting.image}`
+                        //-                 alt=bid.painting.name
+                        //-             )
+
+                        //-             .card-info
+                        //-                 h3= bid.painting.name
+
+                        //-                 p
+                        //-                     | Your current bid:
+                        //-                     strong $#{bid.amount}
+
+                        //-                 p
+                        //-                     | Current highest bid:
+                        //-                     strong $#{bid.painting.currentPrice}
+
+                        //-                 span.status= bid.painting.status === 'active' ? 'Auction Active' : bid.painting.status
+
+                        //-             a.card-btn(href=`/painting/${bid.painting._id}`)
+                        //-                 | View Painting
+
+                        //- else
+                        //-     p You have not placed any bids yet.
+
+
+                    //- Favorites
+                    //- section.account-section#favorites
+                    //-     h2 Favorites
+                    //-     p.section-description
+                    //-         | Paintings you saved to your favorites.
+
+                    //-     .account-card
+                    //-         img(
+                    //-             src="/images/1.jpg"
+                    //-             alt="Favorite Painting"
+                    //-         )
+
+                    //-         .card-info
+                    //-             h3 Beautiful Nature
+                    //-             p
+                    //-                 | A beautiful artwork added to your favorites.
+                    //-             strong $120
+
+                    //-         a.card-btn(href="#")
+                    //-             | View Painting
+
+
+
+                    //- My Purchases
+                    section.account-section#purchases
+                        h2 My Purchases
+                        p.section-description
+                            | View the artworks you have won ^_^
+
+                        if orders.length
+                            each order in orders
+                                .account-card
+                                    img(
+                                        src=`/img/paintings/${order.painting.image}`
+                                        alt=order.painting.name
+                                    )
+
+                                    .card-info
+                                        h3= order.painting.name
+
+                                        p
+                                            | Won on:
+                                            strong= order.painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+                                        p
+                                            | Final Price:
+                                            strong $#{order.amount}
+
+                                        if order.paymentStatus === 'paid'
+                                            p.shipping-status
+                                                | Shipping:
+                                                strong= order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)
+
+                                            span.status.purchased Paid
+
+                                        else if order.paymentStatus === 'failed'
+                                            span.status.failed Payment Failed
+
+                                        else
+                                            span.status.pending Payment Pending
+
+                                    if order.paymentStatus === 'paid'
+                                        a.card-btn(
+                                            href=`/painting/${order.painting.slug}`
+                                        )
+                                            | View Details
+                                    else
+                                        button.card-btn.pay-btn(
+                                            type="button"
+                                            data-order-id=order._id
+                                        )
+                                            | Pay Now
+
+                        else
+                            p No purchases yet.
+
+                                        
+                    //- My Purchases
+                    //- section.account-section#purchases
+                    //-     h2 My Purchases
+                    //-     p.section-description
+                    //-         | View the artworks you have won ^_^
+
+
+                    //-     //- ============== 
+                    //-     if orders.length
+
+                    //-         //- each order in orders
+                    //-         //-     .account-card
+                    //-         //-         img( src=`/img/paintings/${order.painting.image}` alt=order.painting.name )
+                                   
+                    //-         each bid in bids
+                    //-             if bid.painting
+                    //-                 .account-card
+                    //-                     img(
+                    //-                         src=`/img/paintings/${bid.painting.image}`
+                    //-                         alt=bid.painting.name
+                    //-                     )
+
+                                      
+
+                    //-                 .card-info
+                    //-                     h3= order.painting.name
+
+                    //-                     p
+                    //-                         | Won on:
+                    //-                         strong= order.painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+                    //-                     p
+                    //-                         | Final Price:
+                    //-                         strong $#{order.amount}
+
+                                        
+                    //-                     if order.paymentStatus === 'paid'
+                    //-                         p.shipping-status
+                    //-                             | Shipping:
+                    //-                             strong= order.shippingStatus.charAt(0).toUpperCase() + order.shippingStatus.slice(1)   
+
+                                                
+                    //-                     if order.paymentStatus === 'paid'
+                    //-                         span.status.purchased Paid
+                    //-                     else if order.paymentStatus === 'failed'
+                    //-                         span.status.failed Payment Failed
+                    //-                     else
+                    //-                         span.status.pending Payment Pending
+
+
+
+                    //-                     //- if order.paymentStatus === 'paid'
+                    //-                     //-     span.status.purchased Paid
+                    //-                     //- else
+                    //-                     //-     span.status.pending Payment Pending
+
+                                        
+
+                    //-                 if order.paymentStatus === 'paid'
+                    //-                     a.card-btn(
+                    //-                         href=`/painting/${order.painting.slug}`
+                    //-                     )
+                    //-                         | View Details
+                    //-                 else
+                    //-                     button.card-btn.pay-btn(
+                    //-                         type="button"
+                    //-                         data-order-id=order._id
+                    //-                     )
+                    //-                         | Pay Now
+                    //-     else
+                    //-         p No purchases yet.
+
+
+
+                    //- My Purchases
+                    //- section.account-section#purchases
+                    //-     h2 My Purchases
+                    //-     p.section-description
+                    //-         | View the artworks you have won ^_^
+
+                    //-     if purchases.length
+                    //-         each painting in purchases
+                    //-             .account-card
+                    //-                 img(
+                    //-                     src=`/img/paintings/${painting.image}`
+                    //-                     alt=painting.name
+                    //-                 )
+
+                    //-                 .card-info
+                    //-                     h3= painting.name
+
+                    //-                     p
+                    //-                         | Purchased on:
+                    //-                         strong= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+                    //-                     span.status.purchased Purchased
+
+                    //-                 a.card-btn(href=`/painting/${painting.slug}`)
+                    //-                     | View Details
+                    //-     else
+                    //-         p No purchases yet.
+
+
+
+
+                    //- section.account-section#purchases
+                    //-     h2 My Purchases
+                    //-     p.section-description
+                    //-         | View the artworks you have purchased.
+
+                    //-     .account-card
+                    //-         img(
+                    //-             src="/images/1.jpg"
+                    //-             alt="Purchased Painting"
+                    //-         )
+
+                    //-         .card-info
+                    //-             h3 My Painting
+                    //-             p
+                    //-                 | Purchased on:
+                    //-                 strong 15 Jul 2026
+
+                    //-             span.status.purchased Purchased
+
+                    //-         a.card-btn(href="#")
+                    //-             | View Details
+
+
+                    //- Change Password
+                    //- Change Password
+                    section.account-section#password
+                        h2 Change Password
+                        p.section-description
+                            | Keep your account secure by updating your password.
+
+                        form.account-form.form-user-password
+
+                            .form-group
+                                label(for="password-current")
+                                    | Current Password
+
+                                input#password-current(
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                    minlength="8"
+                                )
+
+                            .form-group
+                                label(for="password")
+                                    | New Password
+
+                                input#password(
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                    minlength="8"
+                                )
+
+                            .form-group
+                                label(for="password-confirm")
+                                    | Confirm New Password
+
+                                input#password-confirm(
+                                    type="password"
+                                    placeholder="••••••••"
+                                    required
+                                    minlength="8"
+                                )
+
+                            button.account-btn.btn--save-password(type="submit")
+                                | Change Password
+
+
+                //- End Account Content
+
+    //- End Account Page
+

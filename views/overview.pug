@@ -1,0 +1,360 @@
+extends base
+
+block content
+
+    //- Start Landing
+    .landing#home
+
+        .overlay
+            if user && user.role === 'admin'
+                .admin-link
+                    a(href="/admin")
+                        i.fas.fa-user-shield
+                        | Go to Admin Dashboard
+            .text
+                .content
+                    h2
+                        | Hello World!
+                        br
+                        | I'm Nada I make art.
+
+                    p
+                        | Welcome to Byte Shadow, where colors meet emotions. Explore unique paintings created with passion and creativity, bringing beauty, character, and a special touch to every space.
+
+        a.go-down(href="#gallery")
+            i.fas.fa-angle-double-down.fa-2x
+    //- End Landing
+
+    
+
+
+    //- Start Gallery
+    .gallery#gallery
+
+        .gallery-art-scene
+
+        .container
+
+            .main-heading
+                .container
+                    .text
+                        h2 Gallery
+
+            
+            //- Shuffle with Three.js scene
+            .shuffle-wrapper
+                .shuffle-scene
+
+                ul.shuffle
+                    li.active All
+                    li Expressive
+                    li Romantic
+                    li Nature
+
+
+            //- Gallery Content
+            .gallery-content
+                each painting in paintings
+                    //- .box
+                    .box(data-type=painting.type)
+                        .image
+                            img(src=`/img/paintings/${painting.image}`, alt=painting.name)
+
+                            .text
+                                h3.painting-Name= painting.name
+
+                                p.breif-overview= painting.briefPara
+
+                                span= painting.size
+
+                                //- .price
+                                //-     span.current-price
+                                //-         span.number= painting.currentPrice
+                                //-         span.currency $
+
+                                .price
+                                    if painting.status === 'sold'
+                                        .price-info
+                                            span.sold SOLD
+
+                                            span.current-price
+                                                span.number= painting.currentPrice
+                                                span.currency E£
+                                        //- span.sold SOLD
+
+
+                                    else if painting.status === 'reserved'
+                                        .price-info
+                                            span.sold RESERVED
+
+                                            span.current-price
+                                                span.number= painting.currentPrice
+                                                span.currency E£
+
+
+                                    //- else if painting.status === 'reserved'
+                                    //-     span.sold REVERSED
+
+                                    //-     span.current-price
+                                    //-         span.number= painting.currentPrice
+                                    //-         span.currency $
+                                    else
+                                        .price-info
+                                            span.current-price
+                                                span.number= painting.currentPrice
+                                                span.currency E£
+
+                                .info
+                                    a(href=`/painting/${painting.slug}`)
+                                        | Details
+                                        i.fas.fa-long-arrow-alt-right
+
+
+
+            //- a.more(href="#") More
+            button.more(type="button") More
+    //- End Gallery
+
+
+    //- Start Decoration
+    .decore#decoration
+        .container
+
+            .main-heading
+                .container
+                    .text
+                        h2 Decoration
+
+            .decore-content
+
+                .decore-text
+                    p
+                        |   Turn your walls into works of art. The right painting adds color, warmth, and personality to any space, making it feel more beautiful and unique. Find the piece that speaks to you and give your space a touch of art with Byte Shadow.
+
+                    
+                .images
+                    img(src="/img/decoration3.jpeg", alt="Decoration")
+                    img(src="/img/decoration4.jpeg", alt="Decoration")
+                    img(src="/img/decoration5.jpeg", alt="Decoration")
+                    img(src="/img/decoration6.jpeg", alt="Decoration")
+                    img(src="/img/decoration7.jpeg", alt="Decoration")
+    //- End Decoration
+
+
+    //- Start Video
+    .video
+        video(autoplay, muted)
+            source(src="/img/awesome-video.mp4", type="video/mp4")
+
+        .text
+            //- h2 Behind Every Painting
+            //- p Every brushstroke tells a story.
+            //- button Explore Gallery
+    //- End Video
+
+
+    
+    //- Start Behind the Brush
+    .behind-brush#about
+        .container
+
+            .main-heading
+                .container
+                    .text
+                        h2 Meet the Artist
+
+            .behind-brush-content
+
+                .behind-brush-text
+                    h3 Drawing the stories I can't explain.
+                
+                    p
+                        | Hi, I'm Nada
+
+                    p
+                        | the artist behind Byte Shadow.
+
+                    p
+                        | For me, art is more than colors on a canvas. It's a way to express feelings, tell stories, and turn simple ideas into something meaningful.
+
+                    p
+                        | Every painting I create carries a little piece of my imagination.
+
+                    p
+                        | Welcome to my world of colors, shadows, and stories.
+
+                .artist-reel
+                    //- video(playsinline preload="metadata")
+                    video(controls playsinline preload="metadata")
+                  
+                        source(src="/img/intro-reel.mp4" type="video/mp4")
+                        | Your browser does not support the video tag.
+
+                    //- img.artist-video-cover(
+                    //-     src="/img/nada.png"
+                    //-     alt="Nada - Byte Shadow artist"
+                    //- )
+                        
+    //- End Behind the Brush
+
+   
+
+
+    //- Start Contact Us
+    .contact#contact
+        .container
+
+            .main-heading
+                .container
+                    .text
+                        h2 Contact Me
+
+            .content
+
+                form(action="/contact" method="POST")
+                    input.main-input(
+                        type="text"
+                        name="name"
+                        placeholder="Your Name"
+                    )
+
+                    input.main-input(
+                        type="email"
+                        name="email"
+                        placeholder="Your Email"
+                    )
+
+                    textarea.main-input(
+                        name="message"
+                        placeholder="Your Message"
+                    )
+
+                    input(
+                        type="submit"
+                        value="send message"
+                    )
+
+                .info
+                    h4 Get In Touch
+                    span.phone +001551037389
+                    span.phone +001285421281
+
+                    h4 Where We Are
+
+                    address
+                        | Mansoura
+                        br
+                        | Dakahlia, Egypt
+                        br
+                        | 01551037389
+                        //- br
+                        //- | USA
+    //- End Contact Us
+
+    if contactStatus === 'success'
+        div#contact-status(
+            data-status="success"
+        )
+    else if contactStatus === 'error'
+        div#contact-status(
+            data-status="error"
+        )
+
+block scripts
+    script(src="/js/bundle.js")
+    script(type="module" src="/js/shuffle-scene.js")
+    script(type="module" src="/js/gallery-scene.js")
+    script(src="/js/contact.js" defer)
+
+
+
+
+
+
+
+
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right
+
+                //- .box
+                //-     .image
+                //-         img(src="/img/1.jpg", alt="Painting")
+                //-         .text
+                //-             h3 Painting Name
+                //-             p a little description for painting..
+                //-             span 40 * 60 cm
+
+                //-             .price
+                //-                 span.current-price
+                //-                     span.number 120
+                //-                     span.currency $
+
+                //-             .info
+                //-                 a(href="#") Details
+                //-                 i.fas.fa-long-arrow-alt-right

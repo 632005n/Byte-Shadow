@@ -1,0 +1,46 @@
+doctype html
+
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+        //- Normalize CSS
+        link(rel="stylesheet", href="/css/normalize.css")
+
+        //- Font Awesome
+        link(rel="stylesheet", href="/css/all.min.css")
+
+        //- Main CSS
+        link(rel="stylesheet", href="/css/overview.css")
+
+
+        //- Alerts CSS
+        link(rel="stylesheet", href="/css/alerts.css")
+
+        //- Google Fonts
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap")
+
+        //- Favicon
+        link(rel="icon", type="image/png", href="/img/logo.png")
+        //- link(rel="shortcut icon", type="image/jpg", href="/images/1.jpg")
+
+        title Byte Shadow | #{title}
+
+        block head
+
+    body
+
+        // HEADER
+        include _header
+
+        // CONTENT
+        block content
+            h1 This is a placeholder heading
+
+        // FOOTER
+        include _footer
+
+        block scripts
+            script(src="/js/bundle.js")

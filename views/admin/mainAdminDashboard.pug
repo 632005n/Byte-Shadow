@@ -1,0 +1,119 @@
+extends ../base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/admin/paintings/paintings-dashboard.css")
+    link(rel="stylesheet", href="/css/admin/main-admin-dashboard.css")
+
+block content
+
+    section.admin-dashboard
+
+        .container
+
+            .stats
+
+                //- Paintings
+
+                .stat-card
+
+                    h3
+                        a(href="/admin/paintings") Total Paintings
+
+                    span= totalPaintings
+
+                    .stat-details
+
+                        .stat-detail
+                            span Active
+                            strong= activePaintings
+
+                        .stat-detail
+                            span Ended
+                            strong= endedPaintings
+
+                        .stat-detail
+                            span Reserved
+                            strong= reservedPaintings
+
+                        .stat-detail
+                            span Sold
+                            strong= soldPaintings
+
+
+                //- Auctions
+
+                .stat-card
+
+                    h3
+                        a(href="/admin/auctions") All Auctions
+
+                    span= totalAuctions
+
+                    .stat-details
+
+                        .stat-detail
+                            span Upcoming
+                            strong= upcomingAuctions
+
+                        .stat-detail
+                            span Active
+                            strong= activeAuctions
+
+                        .stat-detail
+                            span Ended
+                            strong= endedAuctions
+
+                        .stat-detail
+                            span Re-Auction
+                            strong= reAuctions
+
+
+                //- Users
+
+                .stat-card
+
+                    h3
+                        a(href="/admin/users") Users
+
+                    span= totalUsers
+
+                    .stat-details
+
+                        .stat-detail
+                            span Customers
+                            strong= customers
+
+                        .stat-detail
+                            span Admins
+                            strong= admins
+
+                        .stat-detail
+                            span Blocked
+                            strong= blockedUsers
+
+
+                //- Orders
+
+                .stat-card
+
+                    h3
+                        a(href="/admin/orders") Orders
+
+                    span= totalOrders
+
+                    .stat-details
+
+                        .stat-detail
+                            span Processing
+                            strong= processingOrders
+
+                        .stat-detail
+                            span Shipped
+                            strong= shippedOrders
+
+                        .stat-detail
+                            span Delivered
+                            strong= deliveredOrders
+
+

@@ -1,0 +1,294 @@
+extends base
+
+block head
+    link(rel="stylesheet", href="/css/details.css")
+
+block content
+
+
+    //- Start Painting
+    //- .painting
+    //- .painting(data-user-id=user ? user._id : '')
+    //- .painting(
+    //- data-user-id=user ? user._id : ''
+    //- data-painting-id=painting._id
+    //- )
+    .painting(
+    data-user-id=user ? user._id : ''
+    data-user-phone=user ? user.phone : ''
+    data-user-country=user ? user.country : ''
+    data-user-address=user ? user.address : ''
+    data-painting-id=painting._id
+    )
+        .container
+            .painting-content
+
+                .image
+                    img(src=`/img/paintings/${painting.image}`, alt=painting.image)
+
+                .details
+                    h1.painting-Name= painting.name 
+
+                    p.breif-overview= painting.briefPara
+                        //- | Lorem ipsum dolor sit amet consectetur hbvjnvkva habivihbiayb..
+
+                    .sale-section
+
+                        .price
+                            h3 Current Highest Bid
+
+                            span.current-price
+                                span.number= painting.currentPrice
+                                span.currency E£
+
+                            //- .bid-box
+                            //-     label(for="bid") Your Bid
+
+                            //-     input.bid-input(
+                            //-         id="bid"
+                            //-         type="number"
+                            //-         value=`${painting.currentPrice}`
+                            //-         min=`${painting.currentPrice}`
+                            //-         step="10"
+                            //-     )
+
+                            //- //- button.bid-btn(type="button") Place Bid
+                            //- button.bid-btn(type="button" id="place-bid") Place Bid
+
+                            //- if painting.status === 'active'
+                            if painting.status === 'active' || (painting.status === 'ended' && painting.totalBids === 0)
+                                //- .bid-box
+                                //-     label(for="bid") Your Bid
+
+                                //-     input.bid-input(
+                                //-         id="bid"
+                                //-         type="number"
+                                //-         value=`${painting.currentPrice}`
+                                //-         min=`${painting.currentPrice}`
+                                //-         step="10"
+                                //-     )
+
+                                //- button.bid-btn(type="button" id="place-bid") Place Bid
+                                
+                                .bid-box
+                                    label(for="bid") Your Bid
+
+                                    .bid-input-wrap
+                                        input.bid-input(
+                                            id="bid"
+                                            type="number"
+                                            value=`${painting.currentPrice}`
+                                            min=`${painting.currentPrice}`
+                                            step="10"
+                                        )
+
+                                        //- .bid-stepper
+                                        //-     button.bid-step(
+                                        //-         type="button"
+                                        //-         data-step="10"
+                                        //-         aria-label="Increase bid"
+                                        //-     ) +
+                                        //-     button.bid-step(
+                                        //-         type="button"
+                                        //-         data-step="-10"
+                                        //-         aria-label="Decrease bid"
+                                        //-     ) −
+                                        
+                                        .bid-stepper
+                                            button.bid-step(
+                                                type="button"
+                                                data-step="10"
+                                                aria-label="Increase bid"
+                                            )
+                                                span.triangle-up
+                                            button.bid-step(
+                                                type="button"
+                                                data-step="-10"
+                                                aria-label="Decrease bid"
+                                            )
+                                                span.triangle-down
+                                        
+
+                                    button.bid-btn(type="button" id="place-bid") Place Bid
+                                
+
+
+                            //- if auction ended and no winner (no one tried to buy it) or no one shared in its auction
+                            else if painting.status === 'ended'
+                                button.bid-btn.sold-btn(type="button" disabled) Auction Ended
+
+                            else if painting.status === 'reserved'
+                                button.bid-btn.sold-btn(type="button" disabled) Reserved    
+
+                            else if painting.status === 'sold'
+                                button.bid-btn.sold-btn(type="button" disabled) Sold
+
+                            //- else if painting.status === 'sold'
+                            //-     .sold-message
+                            //-         | Sold
+
+
+                            // Ater Enter the place bid button
+                            .modal#user-info-modal
+                                .modal-content
+                                    button.modal-close(type="button") x
+
+                                    h2 Complete Your Information
+                                    p Please add your contact information before placing your bid.
+
+                                    form#user-info-form
+                                        .form-group
+                                            label(for="phone") Phone Number
+                                            input#phone(
+                                                type="tel"
+                                                placeholder="Enter your phone number"
+                                                required
+                                            )
+
+                                        .form-group
+                                            label(for="country") Country
+                                            input#country(
+                                                type="text"
+                                                name="country"
+                                                placeholder="Enter your country"
+                                            )
+
+                                        .form-group
+                                            label(for="address") Address
+                                            textarea#address(
+                                                placeholder="Enter your address"
+                                                required
+                                            )
+
+                                        button(type="submit") Save And Continue
+
+
+                        .info
+
+                            .size
+                                span.title
+                                    i.fas.fa-ruler-combined
+                                    | Size
+
+                                span.value= painting.size 
+
+                            .date
+                                span.title
+                                    i.far.fa-calendar-alt
+                                    | Auction Start
+
+                                span.value= painting.auctionStart.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+                            .auction-info
+                                span.title
+                                    i.fas.fa-gavel
+                                    | Auction End
+
+                                span.value= painting.auctionEnd.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+
+
+                            //- //- Admin Actions
+                            //- if user && user.role === 'admin'
+
+                            //-     .admin-actions
+
+                            //-         a.edit-btn(
+                            //-             href=`/admin/paintings/${painting._id}/edit`
+                            //-         )
+                            //-             | Edit Painting
+
+                            //-         //- if painting.auctionStart && painting.auctionEnd
+
+                            //-         //-     a.show-btn(
+                            //-         //-         href=`/admin/auctions/${painting._id}/bids`
+                            //-         //-     )
+                            //-         //-         | View Auction Bids
+                                    
+                            //-         if painting.status === 'active' || painting.status === 'ended' || painting.status === 'reserved' || painting.status === 'sold'
+
+                            //-             a.show-btn(
+                            //-                 href=`/admin/auctions/${painting._id}/bids`
+                            //-             )
+                            //-                 | View Auction Bids
+
+                    //- Admin Actions
+                    if user && user.role === 'admin'
+
+                        .admin-actions
+
+                            a.edit-btn(
+                                href=`/admin/paintings/${painting._id}/edit`
+                            )
+                                | Edit Painting
+
+                            if painting.status === 'active' || painting.status === 'ended' || painting.status === 'reserved' || painting.status === 'sold'
+
+                                a.show-btn(
+                                    href=`/admin/auctions/${painting._id}/bids`
+                                )
+                                    | View Auction Bids
+
+    //- End Painting
+
+
+    //- Start Decoration
+    .decoration
+        .container
+
+            .section-title
+                span
+                h2 Decoration Ideas
+                span
+
+            p
+                | A beautiful painting adds warmth, color, and personality to any space, turning ordinary walls into something truly special and unique.
+
+            .images
+                each image in painting.decoImages
+                    //- img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/deco-${image}`, alt="Decoration")
+                    img(src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/${image}`, alt="Decoration")
+                    //- img(src=`/img/paintings/${painting.name}/deco-${image}`, alt="Decoration")
+
+                    //- img(src=`/img/paintings/${image}`, alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+                //- img(src="/images/1.jpg", alt="Decoration")
+
+    //- End Decoration
+
+
+    //- Start Description
+    .description-feel
+        .container
+
+            p= painting.description1
+
+            p= painting.description2
+
+    //- End Description
+
+
+    //- Start Stages
+    .stages
+        .container
+
+            .section-title
+                span
+                h2 Painting Process
+                span
+
+            p
+                | Follow the journey of this artwork from the first sketch to the final masterpiece.
+
+            .stage-images
+                each image in painting.stageImages
+                    //- img( src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/stage-${image}`, alt="stages")
+                    img(src=`/img/paintings/${painting.name.replace(/\s+/g, '-')}/${image}`, alt="stages")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+                //- img(src="/images/1.jpg", alt="Painting Process")
+
+    //- End Stages
+

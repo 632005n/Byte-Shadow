@@ -1,0 +1,1348 @@
+:root {
+    /* Background */
+    --dark-bg: rgba(0, 0, 0, .65);
+    /* Glass */
+    --glass-bg: rgba(255, 255, 255, .05);
+    /* Borders */
+    --soft-border: rgba(255, 255, 255, .12);
+    /* Text */
+    --light-text: rgba(255, 255, 255, .85);
+    --medium-text: rgba(255, 255, 255, .8);
+    --muted-text: rgba(255, 255, 255, .65);
+    /* Lines */
+    --line-color: rgba(255, 255, 255, .25);
+    --line-soft: rgba(255, 255, 255, .35);
+    /* Shadows */
+    --shadow-soft: rgba(0, 0, 0, .35);
+    --shadow-medium: rgba(0, 0, 0, .45);
+    --shadow-dark: rgba(0, 0, 0, .5);
+}
+
+/* ===========================
+        Painting Details
+=========================== */
+
+.painting {
+    position: relative;
+    background: var(--dark-bg);
+    padding: 150px 0 100px;
+    min-height: 100vh;
+    border-bottom: 1px solid rgba(79, 77, 77, 0.021);
+    box-shadow:
+        inset 0 -30px 60px var(--shadow-soft),
+        0 40px 70px rgba(0, 0, 0, .25);
+}
+
+.painting .painting-content {
+    display: flex;
+    gap: 80px;
+    align-items: flex-start;
+}
+
+/* ===========================
+            Image
+=========================== */
+
+.painting .image {
+    flex: 0 0 420px;
+}
+
+.painting .image img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 40px 60px var(--shadow-medium);
+    transition: .4s;
+}
+
+.painting .image img:hover {
+    transform: scale(1.13);
+}
+
+/* ===========================
+          Details
+=========================== */
+
+.painting .details {
+    flex: 1;
+}
+
+.painting .painting-Name {
+    color: var(--main-color);
+    font-size: 45px;
+    margin-bottom: 20px;
+}
+
+.painting .breif-overview {
+    color: var(--main-color);
+    line-height: 1.8;
+    font-size: 18px;
+    margin-bottom: 45px;
+    max-width: 700px;
+}
+
+/* ===========================
+        Sale Section
+=========================== */
+
+.sale-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 70px;
+}
+
+/* ===========================
+        Price Card
+=========================== */
+
+.price {
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 12px;
+    padding: 30px;
+    min-width: 330px;
+    backdrop-filter: blur(10px);
+}
+
+.price h3 {
+    color: var(--medium-text);
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.current-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.current-price .number {
+    color: var(--main-color);
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.current-price .currency {
+    color: var(--strong-color);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ===========================
+        Bid Input
+=========================== */
+
+.bid-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.bid-box label {
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+.bid-input {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .08);
+    color: white;
+    font-size: 18px;
+    outline: none;
+    transition: .3s;
+}
+
+.bid-input:focus {
+    border-color: var(--strong-color);
+    box-shadow: 0 0 15px rgba(255, 255, 255, .15);
+}
+
+.bid-input {
+    -moz-appearance: textfield;
+}
+
+/* ===========================
+        Bid Button
+=========================== */
+
+.bid-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--strong-color);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .35s;
+}
+
+.bid-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .3);
+}
+
+
+.sold-btn {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ِAfter Enter "Place bid" button & aleady logged in */
+/* .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    padding: 35px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content h2 {
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#user-info-form button[type="submit"] {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+} */
+
+
+/* ===========================
+   User Information Modal
+=========================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    background: rgba(0, 0, 0, .75);
+    backdrop-filter: blur(8px);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 480px;
+
+    padding: 35px;
+
+    background: rgba(20, 20, 20, .92);
+    border: 1px solid var(--soft-border);
+    border-radius: 14px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, .55),
+        inset 0 0 30px rgba(255, 255, 255, .02);
+
+    backdrop-filter: blur(15px);
+}
+
+/* ---------- Title ---------- */
+
+.modal-content h2 {
+    margin: 0 0 10px;
+    color: var(--main-color);
+    font-size: 26px;
+}
+
+/* ---------- Description ---------- */
+
+.modal-content p {
+    margin-bottom: 28px;
+    color: var(--muted-text);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ---------- Close Button ---------- */
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+
+    border: none;
+    background: transparent;
+
+    color: var(--muted-text);
+    font-size: 26px;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.modal-close:hover {
+    color: var(--main-color);
+    transform: scale(1.1);
+}
+
+/* ---------- Form ---------- */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 9px;
+
+    color: var(--main-color);
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* ---------- Inputs ---------- */
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, .08);
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    outline: none;
+    transition: .3s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--muted-text);
+}
+
+/* ---------- Focus ---------- */
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--strong-color);
+
+    background: rgba(255, 255, 255, .1);
+
+    box-shadow:
+        0 0 15px rgba(255, 255, 255, .12);
+}
+
+/* ---------- Address ---------- */
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ---------- Save Button ---------- */
+
+#user-info-form button[type="submit"] {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--strong-color);
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: .35s;
+}
+
+#user-info-form button[type="submit"]:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, .35);
+}
+
+
+
+
+/* ===========================
+      Size & Information
+=========================== */
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    min-width: 250px;
+}
+
+.info>div {
+    background: var(--glass-bg);
+    border: 1px solid var(--soft-border);
+    border-radius: 12px;
+    padding: 22px 25px;
+    backdrop-filter: blur(10px);
+    transition: .35s ease;
+}
+
+.info>div:hover {
+    transform: translateY(-5px);
+    border-color: var(--strong-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .25);
+}
+
+.info .title {
+    display: block;
+    color: var(--muted-text);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.info .value {
+    display: block;
+    color: var(--main-color);
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.info .auction-info .value {
+    color: var(--main-color);
+}
+/* ===========================
+        Responsive
+=========================== */
+
+@media (max-width:991px) {
+    .sale-section {
+        flex-direction: column;
+    }
+
+    .price,
+    .info {
+        width: 100%;
+    }
+
+    .info>div {
+        width: 100%;
+    }
+}
+
+/* ===========================
+        Decoration
+=========================== */
+
+.decoration {
+    background: var(--dark-bg);
+    padding: 50px 0 90px;
+}
+
+.section-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin: 10px 0 55px;
+}
+
+.section-title span {
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--strong-color), transparent);
+}
+
+.section-title h2 {
+    color: var(--main-color);
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Paragraph */
+
+.decoration p {
+    max-width: 850px;
+    margin: 0 auto 60px;
+    text-align: center;
+    color: var(--light-text);
+    font-size: 18px;
+    line-height: 2.1;
+    letter-spacing: .4px;
+}
+
+.decoration p::after {
+    content: "";
+    display: block;
+    width: 130px;
+    height: 2px;
+    margin: 35px auto 0;
+    background: linear-gradient(to right, transparent, var(--line-soft), transparent);
+}
+
+/* ===========================
+            Images
+=========================== */
+
+.decoration .images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 0;
+}
+
+.decoration .images img {
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 6px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 20px 40px var(--shadow-soft);
+    margin-left: -22px;
+    transition: transform .45s, box-shadow .45s;
+}
+
+/* الميل */
+
+.decoration .images img:nth-child(1) {
+    transform: rotate(-8deg);
+}
+
+.decoration .images img:nth-child(2) {
+    transform: rotate(5deg);
+}
+
+.decoration .images img:nth-child(3) {
+    transform: rotate(-5deg);
+}
+
+.decoration .images img:nth-child(4) {
+    transform: rotate(8deg);
+}
+
+/* Hover */
+
+.decoration .images img:hover {
+    transform: rotate(0) scale(1.28);
+    z-index: 20;
+    box-shadow: 0 30px 60px var(--shadow-dark);
+}
+
+@media (max-width:991px) {
+    .painting .painting-content {
+        flex-direction: column;
+    }
+
+    .painting .image {
+        width: 100%;
+        max-width: 420px;
+        margin: auto;
+    }
+
+    .sale-section {
+        flex-direction: column;
+    }
+
+    .price,
+    .info {
+        width: 100%;
+    }
+
+    .decoration .images {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .decoration .images img {
+        margin-left: 0;
+        transform: none !important;
+    }
+}
+
+/* ===========================
+        Description Feel
+=========================== */
+
+.description-feel {
+    background: var(--dark-bg);
+    padding: 80px 0;
+    position: relative;
+}
+
+.description-feel,
+.stages {
+    position: relative;
+}
+
+.description-feel::before,
+.stages::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--line-color), transparent);
+}
+
+.description-feel p {
+    color: var(--light-text);
+    font-size: 20px;
+    line-height: 2;
+    text-align: center;
+    max-width: 950px;
+    margin: 0 auto 25px;
+    letter-spacing: .5px;
+    font-style: italic;
+    position: relative;
+}
+
+.description-feel::after {
+    content: "BYTE SHADOW";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 120px;
+    font-weight: bold;
+    letter-spacing: 15px;
+    color: rgba(255, 255, 255, .04);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.description-feel .container {
+    position: relative;
+    z-index: 1;
+}
+/* ===========================
+        Painting Process
+=========================== */
+
+.stages {
+    background: var(--dark-bg);
+    padding: 80px 0;
+    overflow: hidden;
+    padding-bottom: calc(var(--section-padding) + 100px);
+}
+
+.stages p {
+    color: var(--light-text);
+    font-size: 18px;
+    line-height: 2;
+    max-width: 850px;
+    margin: 0 auto 45px;
+    text-align: center;
+}
+.section-title {
+    margin: 10px 0 35px;
+}
+.stage-images {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0 140px;
+    padding: 35px 80px 25px;
+    scroll-behavior: smooth;
+}
+
+.stage-images::-webkit-scrollbar {
+    height: 8px;
+}
+
+.stage-images::-webkit-scrollbar-thumb {
+    background: var(--line-color);
+    border-radius: 20px;
+}
+
+.stage-images img {
+    flex: 0 0 auto;
+    width: 240px;
+    height: 330px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 4px solid var(--soft-border);
+    box-shadow: 0 18px 35px var(--shadow-medium);
+    transition: .45s;
+}
+
+/* .stage-images img:nth-child(odd) {
+    transform: rotate(-5deg);
+}
+
+.stage-images img:nth-child(even) {
+    transform: rotate(5deg);
+} */
+
+.stage-images img:hover {
+    transform: rotate(0deg) scale(1.12);
+    z-index: 5;
+}
+
+.stage-images {
+    position: relative;
+}
+
+.stage-images::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--line-color), transparent);
+    z-index: 0;
+}
+
+.stage-images img {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================
+   Admin Actions
+========================= */
+/* 
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.admin-actions a {
+    flex: 1;
+    text-align: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .35s;
+}
+
+.admin-actions .edit-btn {
+    background: transparent;
+    border: 1px solid var(--soft-border);
+    color: var(--main-color);
+}
+
+.admin-actions .show-btn {
+    background: transparent;
+    border: 1px solid var(--soft-border);
+    color: var(--main-color);
+}
+
+.admin-actions a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 22px var(--shadow-dark);
+} */
+
+/* =========================
+   Admin Actions
+========================= */
+
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.admin-actions a {
+    text-align: center;
+    padding: 14px 22px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: .35s;
+}
+
+.admin-actions .edit-btn {
+    background: transparent;
+    border: 1px solid var(--soft-border);
+    color: var(--main-color);
+}
+
+.admin-actions .show-btn {
+    background: transparent;
+    border: 1px solid var(--soft-border);
+    color: var(--main-color);
+}
+
+.admin-actions a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 22px var(--shadow-dark);
+}
+
+
+
+/* Responsive Painting Details */
+@media (max-width: 767px) {
+
+    .painting {
+        padding: 100px 0 50px;
+    }
+
+    .painting .painting-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .painting .image {
+        flex: none;
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .painting .image img:hover {
+        transform: none;
+    }
+
+    .painting .details {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .painting .painting-Name {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .painting .breif-overview {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
+
+    /* Show painting information before the bid card */
+    .sale-section {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sale-section .info {
+        order: 1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .sale-section .info>div {
+        width: 100%;
+        min-width: 0;
+        padding: 12px 8px;
+        border-radius: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    .sale-section .info>div:hover {
+        transform: none;
+    }
+
+    .sale-section .info .title {
+        font-size: 10px;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .sale-section .info .value {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    /* Place Bid below the painting information */
+    .sale-section .price {
+        order: 2;
+        width: 100%;
+        min-width: 0;
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .sale-section .price h3 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .sale-section .current-price {
+        gap: 6px;
+        margin-bottom: 18px;
+    }
+
+    .sale-section .current-price .number {
+        font-size: 32px;
+    }
+
+    .sale-section .current-price .currency {
+        font-size: 20px;
+    }
+
+    .bid-box {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .bid-box label {
+        font-size: 14px;
+    }
+
+    .bid-input {
+        padding: 11px 12px;
+        font-size: 16px;
+    }
+
+    .bid-btn {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .admin-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .admin-actions a {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+/* 
+    .decoration .images {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .decoration .images img {
+        margin-left: 0;
+        transform: none !important;
+        width: 40%;
+      
+        
+    } */
+
+        /* Decoration Images */
+        .decoration .images {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+    
+        .decoration .images img {
+            width: 40%;
+            max-width: 160px;
+            height: 210px;
+            margin-left: 0;
+            transform: none !important;
+            border-width: 4px;
+        }
+    
+        /* Painting Process Images */
+        .stage-images {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 0;
+            padding: 20px 5px;
+            scroll-behavior: smooth;
+        }
+    
+        .stage-images img {
+            flex: 0 0 160px;
+            width: 160px;
+            min-width: 0;
+            height: 210px;
+            border-width: 3px;
+            border-radius: 12px;
+        }
+    
+        .stage-images::before {
+            display: block;
+        }
+  
+           
+}
+
+
+/* Mobile Bid Card Alignment */
+@media (max-width: 767px) {
+
+    .sale-section .price {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .sale-section .price h3,
+    .sale-section .current-price,
+    .sale-section .bid-box,
+    .sale-section .bid-btn {
+        width: 100%;
+    }
+
+    .sale-section .current-price {
+        justify-content: center;
+    }
+
+    .sale-section .bid-box {
+        align-items: center;
+    }
+
+    .sale-section .bid-input {
+        text-align: center;
+    }
+
+}
+
+
+/* Center Painting Details and Section Titles on Mobile */
+@media (max-width: 767px) {
+
+    /* Painting Name and Description */
+    .painting .painting-Name {
+        text-align: center;
+        font-size: 25px;
+    }
+
+    .painting .breif-overview {
+        text-align: center;
+    }
+
+    /* Decoration Ideas Title */
+    .decoration .section-title {
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .decoration .section-title h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* Painting Process Title */
+    .stages .section-title {
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .stages .section-title h2 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    /* Center Section Descriptions */
+    .decoration .container>p,
+    .stages .container>p,
+    .description-feel .container>p {
+        text-align: center;
+    }
+
+}
+
+
+ @media (max-width: 767px) {
+    .sale-section input.bid-input[type="number"] {
+        width: 100%;
+        min-height: 52px;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        font-size: 18px;
+        text-align: center;
+        -webkit-appearance: auto !important;
+        appearance: auto !important;
+    }
+
+    .sale-section input.bid-input[type="number"]::-webkit-inner-spin-button,
+    .sale-section input.bid-input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: inner-spin-button !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+}
+
+
+
+
+/* Mobile Bid Stepper */
+.bid-input-wrap {
+    position: relative;
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .sale-section .bid-input-wrap {
+        width: 100%;
+    }
+
+    .sale-section .bid-input-wrap .bid-input {
+        width: 100%;
+        min-height: 52px;
+        box-sizing: border-box;
+        padding: 12px 42px 12px 14px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .bid-stepper {
+        position: absolute;
+        top: 3px;
+        right: 4px;
+        bottom: 3px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .bid-step {
+        width: 30px;
+        flex: 1;
+        min-height: 18px;
+        padding: 0;
+        border: none;
+        border-radius: 4px;
+        background: #e5e5e5;
+        color: #222;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .bid-step:active {
+        background: #bdbdbd;
+    }
+}
+
+@media (min-width: 768px) {
+    .bid-stepper {
+        display: none;
+    }
+}
+
+
+/* Triangle Bid Controls */
+.bid-step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid #222;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #222;
+}
+
+
+
+/* Tablet Painting Details Only */
+@media (min-width: 768px) and (max-width: 1100px) {
+
+    .painting {
+        padding: 120px 0 70px;
+    }
+
+    .painting .painting-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 35px;
+    }
+
+    .painting .image {
+        flex: none;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .painting .details {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .painting .painting-Name {
+        font-size: 36px;
+    }
+
+    .painting .breif-overview {
+        max-width: 100%;
+        font-size: 17px;
+        margin-bottom: 30px;
+    }
+
+    .sale-section {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .sale-section .info {
+        flex: 1;
+        min-width: 0;
+        gap: 15px;
+    }
+
+    .sale-section .info>div {
+        box-sizing: border-box;
+        min-width: 0;
+        padding: 18px;
+        overflow-wrap: anywhere;
+    }
+
+    .sale-section .info .value {
+        font-size: 18px;
+    }
+
+    .sale-section .price {
+        flex: 1;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 22px;
+    }
+
+    .sale-section .current-price .number {
+        font-size: 38px;
+    }
+
+    .sale-section .current-price .currency {
+        font-size: 23px;
+    }
+}
+
+
+/* Show Bid Stepper on Tablets */
+@media (min-width: 768px) and (max-width: 1100px) {
+    .sale-section .bid-input-wrap {
+        position: relative;
+        width: 100%;
+    }
+
+    .sale-section .bid-input-wrap .bid-input {
+        width: 100%;
+        box-sizing: border-box;
+        padding-right: 42px;
+    }
+
+    .sale-section .bid-stepper {
+        position: absolute;
+        top: 3px;
+        right: 4px;
+        bottom: 3px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+    }
+
+    .sale-section .bid-step {
+        width: 30px;
+        flex: 1;
+        min-height: 18px;
+        padding: 0;
+        border: none;
+        border-radius: 4px;
+        background: #e5e5e5;
+        color: #222;
+        font-size: 15px;
+        line-height: 1;
+        cursor: pointer;
+    }
+}
+

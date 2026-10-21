@@ -1,0 +1,81 @@
+// Start Header
+.header
+    .container
+
+        .logo
+            a.logo-link(href="/")
+                img(src="/img/logo.png", alt="Byte Shadow Logo")
+                img.logo-secondary(src="/img/logo2.png", alt="Byte Shadow Logo 2")
+            //- img(src="/img/logo.png", alt="Byte Shadow Logo")
+            //- //- img(src="/img/logo2.png", alt="Byte Shadow Logo")
+            //- h3 BYTE SHADOW
+
+        .links
+            .auth
+                if user
+                    a.nav__el--logout Log out
+                    a.nav__el(href='/account')
+                        //- img.nav__user-img(
+                        //-     src="/img/users/default.jpg"
+                        //-     data-user-photo=user.photo
+                        //-     alt=""
+                        //-     onerror="this.onerror=null; this.src='/img/users/default.jpg'"
+                        //- )
+                        img.nav__user-img(src=`/img/users/${user.photo}` alt=`${user.name}`) 
+                        //- span= user.name.split(' ')[0]
+
+                else
+                    a(href='/login') Log in
+                    a(href='/signup') Sign up
+
+
+                //- if user
+                //-     a.user-profile(href="/profile")
+                //-         img(
+                //-             src=`/img/users/${user.photo}`
+                //-             alt=user.name
+                //-         )
+                //-         span= user.name
+
+                //-     //- a(href="/logout") Logout
+                //-     a.nav__el--logout(href="#")
+                //-         i.fas.fa-sign-out-alt
+                //-         span Logout
+
+                //- else
+                //-     a(href="/login") Login
+                //-     a(href="/signup") Sign Up
+            //- .auth
+            //-     a(href="/login") Login
+            //-     a(href="/signup") Sign Up
+
+            .menu
+                span.icons
+                    span
+                    span
+                    span
+
+                ul
+                    li
+                        a(href="/") Home🏠
+
+                    if typeof currentPage !== 'undefined' && currentPage === 'home'
+                        li
+                            a(href="#gallery") Gallery🎨
+                        li
+                            a(href="#decoration") Decoration🖼️
+                        li
+                            a(href="#about") The Artist👩🏻‍🎨
+                        li
+                            a(href="#contact") Contact Me💌
+
+                    //- li
+                    //-     a(href="#gallery") Gallery🎨
+                    //- li
+                    //-     a(href="#decoration") Decoration🖼️
+                    //- li
+                    //-     a(href="#about") The Artist👩🏻‍🎨
+                    //- li
+                    //-     a(href="#contact") Contact Me💌
+
+

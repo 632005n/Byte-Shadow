@@ -1,0 +1,58 @@
+import axios from 'axios';
+import { showAlert } from './alerts';
+// import { isLoggedIn } from '../../controllers/authController';
+
+export const login = async (email , password) => {
+    console.log(email,password);
+
+    try{
+        const res = await axios({
+          method: 'POST',
+          url: '/api/v1/users/login',
+          data: {
+            email,
+            password
+          }
+        });
+
+        if(res.data.status === 'success'){
+             console.log('LOGIN SUCCESS ✅');
+             console.log(res.data);
+            showAlert('success','Logged in successfully');
+
+            // window.setTimeout(() => {
+            //     location.assign('/');
+            // }, 1500);
+
+            // Redirect to the page before logging in 
+
+            window.setTimeout(() => {
+              const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+
+              if (redirectUrl) {
+                sessionStorage.removeItem('redirectAfterLogin');
+                location.assign(redirectUrl);
+              } else {
+                location.assign('/');
+              }
+            }, 1500);
+        }
+    }
+    catch (err){
+        showAlert('error',err.response.data.message);
+    }
+};
+
+export const logout = async() => {
+    try{
+        const res = await axios({
+            method: 'GET',
+            url: '/api/v1/users/logout'
+        });
+        // if(res.data.status === 'success')    location.reload(true);
+        // To reload the index page
+        if (res.data.status === 'success') window.location.href = '/';
+    } catch (err) {
+        showAlert('error', 'Error logging out :) Try again ..');
+    }
+}
