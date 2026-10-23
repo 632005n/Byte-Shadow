@@ -2,10 +2,10 @@
 // const dns = require('node:dns');
 // dns.setServers(['8.8.8.8', '8.8.4.4']);
 
-dns.promises
-  .resolveSrv('_mongodb._tcp.cluster0.ftpcou4.mongodb.net')
-  .then(records => console.log('SRV records resolved:', records))
-  .catch(err => console.log('SRV lookup failed:', err.code, err.message));
+// dns.promises
+//   .resolveSrv('_mongodb._tcp.cluster0.ftpcou4.mongodb.net')
+//   .then(records => console.log('SRV records resolved:', records))
+//   .catch(err => console.log('SRV lookup failed:', err.code, err.message));
 
 
 const mongoose = require('mongoose');
