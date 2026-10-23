@@ -8,6 +8,33 @@
 //   .catch(err => console.log('SRV lookup failed:', err.code, err.message));
 
 
+const dns = require('node:dns');
+
+const net = require('node:net');
+
+const testSocket = net.connect(
+  27017,
+  'ac-awpsc2w-shard-00-00.ftpcou4.mongodb.net'
+);
+
+testSocket.setTimeout(5000);
+
+testSocket.on('connect', () => {
+  console.log('MongoDB TCP connection successful');
+  testSocket.destroy();
+});
+
+testSocket.on('timeout', () => {
+  console.log('MongoDB TCP connection timed out');
+  testSocket.destroy();
+});
+
+testSocket.on('error', err => {
+  console.log('MongoDB TCP connection failed:', err.code);
+});
+
+
+
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
