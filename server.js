@@ -29,9 +29,13 @@ process.on('uncaughtException', err => {
 
 
 
-const DB = process.env.DATABASE.replace(
+// const DB = process.env.DATABASE.replace(
+//   '<PASSWORD>',
+//   process.env.DATABASE_PASSWORD
+// );
+const DB = process.env.MONGO_URI.replace(
   '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
+  process.env.MONGO_PASSWORD,
 );
 
 console.log({
