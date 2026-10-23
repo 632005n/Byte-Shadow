@@ -33,21 +33,42 @@ process.on('uncaughtException', err => {
 //   '<PASSWORD>',
 //   process.env.DATABASE_PASSWORD
 // );
-const DB = process.env.MONGO_URI.replace(
-  '<PASSWORD>',
-  process.env.MONGO_PASSWORD,
-);
+
+
+// const DB = process.env.MONGO_URI.replace(
+//   '<PASSWORD>',
+//   process.env.MONGO_PASSWORD,
+// );
+
+// console.log({
+//   databaseHasPlaceholder: process.env.DATABASE.includes('<PASSWORD>'),
+//   passwordLoaded: Boolean(process.env.DATABASE_PASSWORD),
+//   passwordLength: process.env.DATABASE_PASSWORD?.length
+// });
+// mongoose
+//   .connect(DB)
+//   .then(() => console.log('Atlas DB connection successful'))
+//   .catch(err => console.log('Atlas DB connection error:', err));
+
+
+const DB_URI = process.env.MONGO_URI;
+const DB_PASSWORD = process.env.MONGO_PASSWORD;
+
+if (!DB_URI || !DB_PASSWORD) {
+  throw new Error('Missing MONGO_URI or MONGO_PASSWORD environment variable');
+}
+
+const DB = DB_URI.replace('<PASSWORD>', DB_PASSWORD);
 
 console.log({
-  databaseHasPlaceholder: process.env.DATABASE.includes('<PASSWORD>'),
-  passwordLoaded: Boolean(process.env.DATABASE_PASSWORD),
-  passwordLength: process.env.DATABASE_PASSWORD?.length
+  mongoUriLoaded: Boolean(DB_URI),
+  passwordLoaded: Boolean(DB_PASSWORD),
 });
+
 mongoose
   .connect(DB)
   .then(() => console.log('Atlas DB connection successful'))
-  .catch(err => console.log('Atlas DB connection error:', err));
-
+  .catch((err) => console.log('Atlas DB connection error:', err));
 
   
 require('./utils/auctionJob');
